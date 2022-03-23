@@ -201,11 +201,11 @@ Parameters
 
 :initial_pose:
 
-  ============== =============================
-  Type           Default                                               
-  -------------- -----------------------------
-  Pose2D         {0.0, 0.0, 0.0, 0.0}         
-  ============== =============================
+  ============== ==================================
+  Type           Default                           
+  -------------- ----------------------------------
+  Pose2D         {x: 0.0, y: 0.0, z: 0.0, yaw: 0.0}
+  ============== ==================================
 
   Description
     X, Y, Z, and yaw coordinates of initial pose (meters and radians) of robot base frame in global frame.
@@ -319,7 +319,10 @@ Parameters
   ============== =============================
 
   Description
-    The fully-qualified type of the plugin class. Options are nav2_amcl::DifferentialMotionModel and nav2_amcl::OmniMotionModel.
+    The fully-qualified type of the plugin class. Options are "nav2_amcl::DifferentialMotionModel" and "nav2_amcl::OmniMotionModel". Users can also provide their own custom motion model plugin type.
+
+  Note for users of galactic and earlier
+    The models are selectable by string key (valid options: "differential", "omnidirectional") rather than plugins.
 
 :save_pose_rate:
 
@@ -482,7 +485,6 @@ Example
         do_beamskip: false
         global_frame_id: "map"
         lambda_short: 0.1
-        set_initial_pose: false
         laser_likelihood_max_dist: 2.0
         laser_max_range: 100.0
         laser_min_range: -1.0
@@ -507,7 +509,12 @@ Example
         z_max: 0.05
         z_rand: 0.5
         z_short: 0.05
-        always_reset_initial_pose: false
         scan_topic: scan
         map_topic: map
-        
+        set_initial_pose: false
+        always_reset_initial_pose: false
+        initial_pose:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+          yaw: 0.0
